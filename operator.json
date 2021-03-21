@@ -1,0 +1,9 @@
+{
+  "name": "Median operator",
+  "description": "Return the median value per cell",
+  "tags": ["basic statistics"],
+  "authors": ["tercen"],
+  "urls": ["https://github.com/tercen/median_python_operator"]
+}
+
+
