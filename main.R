@@ -12,25 +12,18 @@ do.saucie = function(data) {
       file.remove(out.filename);
     }
   })
-  # write.filename = file(filename, "wb")
-  # writeBin(as.vector(data), write.filename, size=4)
-  # 
-  # close(write.filename)
   write.table(data, file = filename, col.names = FALSE, row.names = FALSE, quote = FALSE, sep="\t")
-  cmd = 'python3 main.py'
-  args = paste(filename,
+  cmd = paste('python3 main.py',
+               filename,
                out.filename,
                sep = ' ')
-  system2(cmd, args)
-  read.filename = file(out.filename, "rb")
-  saucie.data = readBin(read.filename, double(), size = 4, n = 2 * ncol(data))
-  close(read.filename)
-  out.matrix = matrix(saucie.data, nrow = ncol(data), ncol = 3, byrow = TRUE)
-  colnames(out.matrix) = c('SAUCIE1', 'SAUCIE2', "cluster")
-  return(out.matrix)
+  system(cmd)
+  saucie.data = read.table(out.filename)
+  colnames(saucie.data) = c('SAUCIE1', 'SAUCIE2', "cluster")
+  return(saucie.data)
 }
 
-data <- (ctx = tercenCtx())  %>% 
+(ctx = tercenCtx())  %>% 
   as.matrix(fill=0) %>% 
   do.saucie() %>%
   as.data.frame() %>% 
