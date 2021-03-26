@@ -1,9 +1,9 @@
 {
-  "name": "Median operator",
-  "description": "Return the median value per cell",
-  "tags": ["basic statistics"],
+  "name": "SAUCIE",
+  "description": "Run the SAUCIE algorithm",
+  "tags": ["flow cytometry"],
   "authors": ["tercen"],
-  "urls": ["https://github.com/tercen/median_python_operator"]
+  "urls": ["https://github.com/tercen/SAUCIE_python_operator"]
 }
 
 

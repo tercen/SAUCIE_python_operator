@@ -1,18 +1,39 @@
-library(tercen)
 library(dplyr)
-library(reticulate)
+library(tercen)
 
-options("tercen.workflowId" = "686a2e2bba117e0c118bcb715300b5d3")
-options("tercen.stepId"     = "52110340-a9c9-49fd-ba1e-a9b0cc4639b4")
+do.saucie = function(data) {
+  filename = tempfile()
+  out.filename = tempfile()
+  on.exit({
+    if (file.exists(filename)){
+      file.remove(filename);
+    }
+    if (file.exists(out.filename)){
+      file.remove(out.filename);
+    }
+  })
+  # write.filename = file(filename, "wb")
+  # writeBin(as.vector(data), write.filename, size=4)
+  # 
+  # close(write.filename)
+  write.table(data, file = filename, col.names = FALSE, row.names = FALSE, quote = FALSE, sep="\t")
+  cmd = 'python3 main.py'
+  args = paste(filename,
+               out.filename,
+               sep = ' ')
+  system2(cmd, args)
+  read.filename = file(out.filename, "rb")
+  saucie.data = readBin(read.filename, double(), size = 4, n = 2 * ncol(data))
+  close(read.filename)
+  out.matrix = matrix(saucie.data, nrow = ncol(data), ncol = 3, byrow = TRUE)
+  colnames(out.matrix) = c('SAUCIE1', 'SAUCIE2', "cluster")
+  return(out.matrix)
+}
 
-getOption("tercen.workflowId")
-getOption("tercen.stepId")
-
-reticulate::source_python("main.py")
-
-df <- (ctx <- tercenCtx()) %>%
-  select() %>% run_py_script()
-
-df %>%
+data <- (ctx = tercenCtx())  %>% 
+  as.matrix(fill=0) %>% 
+  do.saucie() %>%
+  as.data.frame() %>% 
+  mutate(.ci = seq_len(nrow(.)) - 1) %>%
   ctx$addNamespace() %>%
-  ctx$save()
+  ctx$save() 
