@@ -28,11 +28,6 @@
       }
     ]
   },
-  "Python": {
-    "Version": "3.6.13",
-    "Type": "conda",
-    "Name": null
-  },
   "Packages": {
     "BH": {
       "Package": "BH",
@@ -149,8 +144,7 @@
     "mtercen": {
       "Package": "mtercen",
       "Version": "1.0.7",
-      "Source": "Repository",
-      "Repository": "TERCEN",
+      "Source": "unknown",
       "Hash": "2333c0a639c728f4d3e21d3342083e02"
     },
     "pillar": {
@@ -212,15 +206,13 @@
     "teRcenHttp": {
       "Package": "teRcenHttp",
       "Version": "1.0.14",
-      "Source": "Repository",
-      "Repository": "TERCEN",
+      "Source": "unknown",
       "Hash": "5ed131ec0d0917f1a2b013e9ac44fee7"
     },
     "tercen": {
       "Package": "tercen",
       "Version": "0.9.5",
-      "Source": "Repository",
-      "Repository": "TERCEN",
+      "Source": "unknown",
       "Hash": "6b8359f6781e2a0d9d0feb184930e72e"
     },
     "tibble": {
